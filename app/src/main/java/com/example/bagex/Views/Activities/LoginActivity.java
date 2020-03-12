@@ -73,7 +73,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         loginBtn = findViewById(R.id.loginBtn);
         registerText = findViewById(R.id.registerText);
         forgotPasswordText = findViewById(R.id.forgotPasswordText);
-        String register = "<b><font color='#4DBDA6'>" + getString(R.string.don_t_have_an_account_register) + " </font>  <b><font color='#4B92F9'>" + getString(R.string.register) + "</font>";
+        String register = "<b><font color='#8A8A8A'>" + getString(R.string.don_t_have_an_account_register) + " </font>  <b><font color='#52BCA6'>" + getString(R.string.sign_up) + "</font>";
         // String register = getString(R.string.don_t_have_an_account_register) + "<b>" + getString(R.string.register) + "</b> ";
         registerText.setText(Html.fromHtml(register));
     }

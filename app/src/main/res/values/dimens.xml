@@ -3,4 +3,8 @@
     <dimen name="text_size">18sp</dimen>
     <dimen name="dimen_10">10dp</dimen>
     <dimen name="dimen_20sp">20sp</dimen>
+    <dimen name="care_ele_18dp">18dp</dimen>
+    <dimen name="dimen_25sp">25sp</dimen>
+    <dimen name="dimen_20dp">20dp</dimen>
+    <dimen name="dimen_5dp">5dp</dimen>
 </resources>
