@@ -6,7 +6,10 @@
     android:orientation="vertical"
     tools:context=".Views.DeliveryAgent.DeliveryCompletedOrdersFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/toolbar_layout" />
+
     <com.example.bagex.Utils.CommonTextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

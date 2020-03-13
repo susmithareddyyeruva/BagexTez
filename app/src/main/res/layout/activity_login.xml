@@ -126,7 +126,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/usernameLyt"
                     android:layout_marginTop="@dimen/dimen_10"
-                    app:hintTextAppearance="@style/hint_text">
+                    app:hintTextAppearance="@style/hint_text"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/colorPrimary">
 
                     <com.example.bagex.Utils.CommonEditText
                         android:id="@+id/passwordEdt"
@@ -141,7 +143,8 @@
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:maxLength="25"
-                        app:met_floatingLabel="highlight" />
+                        app:met_floatingLabel="highlight"
+                        />
 
                 </android.support.design.widget.TextInputLayout>
 

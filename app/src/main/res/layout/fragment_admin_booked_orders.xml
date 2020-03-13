@@ -6,6 +6,10 @@
     tools:context=".Views.Admin.AdminBookedOrdersFragment"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/toolbar_layout" />
+
     <com.example.bagex.Utils.CommonTextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

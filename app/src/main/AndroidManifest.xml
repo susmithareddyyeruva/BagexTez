@@ -22,10 +22,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Views.BulkOperator.BulkOperatorMainActivity"></activity>
-        <activity android:name=".Views.PickupAgent.PickupAgentMainActivity" />
-        <activity android:name=".Views.DeliveryAgent.DeliveryAgentMainActivity" />
-        <activity android:name=".Views.Admin.AdminMainActivity" />
+        <activity
+            android:name=".Views.BulkOperator.BulkOperatorMainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Views.PickupAgent.PickupAgentMainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Views.DeliveryAgent.DeliveryAgentMainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Views.Admin.AdminMainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Views.Activities.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
