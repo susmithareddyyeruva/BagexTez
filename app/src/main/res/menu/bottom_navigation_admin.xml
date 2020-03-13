@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/bnav_booked"
+            android:icon="@drawable/ic_noun_shopping_list"
+            android:title="@string/booked" />
+        <item
+            android:id="@+id/bnav_paypending"
+            android:icon="@drawable/ic_noun_payment_pending"
+            android:title="@string/pending" />
+        <item
+            android:id="@+id/bnav_assigned"
+            android:icon="@drawable/ic_noun_assigned"
+            android:title="@string/assigned" />
+
+    </group>
+</menu>
