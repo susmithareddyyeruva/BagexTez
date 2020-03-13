@@ -39,6 +39,7 @@ public class AdminMainActivity extends BaseActivity {
                                         .commit();
                                 break;
 
+
                             case R.id.bnav_paypending:
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.content_frame, new AdminPendingOrdersFragment())
