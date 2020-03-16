@@ -304,6 +304,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             Role = loginResponse.getData().get(0).getRoles().get(0) ;
                             Auth_token = "Bearer"+" "+loginResponse.getData().get(0).getToken();
                             SharedPrefsData.putString(getApplicationContext(), Constants.Auth_Token, Auth_token, Constants.PREF_NAME);
+                            SharedPrefsData.putInt(context, Constants.ISLOGIN, 1, Constants.PREF_NAME);
                             if(Role.equalsIgnoreCase("Admin")){
                                 SharedPrefsData.putString(context, Constants.ROLE, Role, Constants.PREF_NAME);
                                 Toast.makeText(getApplicationContext(), " " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();

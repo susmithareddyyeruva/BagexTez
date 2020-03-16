@@ -2,8 +2,6 @@ package com.example.bagex.Views.Admin;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -17,7 +15,7 @@ import com.example.bagex.Services.APIService;
 import com.example.bagex.Services.ServiceFactory;
 import com.example.bagex.Utils.Constants;
 import com.example.bagex.Utils.SharedPrefsData;
-import com.example.bagex.Views.Adapters.PendingOrdersAdapter;
+import com.example.bagex.Views.Adapters.AdminPendingOrdersAdapter;
 import com.example.bagex.Views.Fragments.BaseFragment;
 import com.example.bagex.Views.ModelClass.RequestModelClasses.GetPendingOrdersRequestModel;
 import com.example.bagex.Views.ModelClass.ResponseModelClasses.GetPendingOrdersResponeModel;
@@ -26,7 +24,6 @@ import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
@@ -47,7 +44,7 @@ public class AdminPendingOrdersFragment extends BaseFragment {
     private ArrayList<GetPendingOrdersResponeModel.Datum> BindDataListResults = new ArrayList<>();
     GetPendingOrdersResponeModel orderResponse;
     LinearLayoutManager mLayoutManager;
-    private PendingOrdersAdapter pendingOrdersAdapter;
+    private AdminPendingOrdersAdapter pendingOrdersAdapter;
 
     public AdminPendingOrdersFragment() {
         // Required empty public constructor
@@ -133,7 +130,7 @@ public class AdminPendingOrdersFragment extends BaseFragment {
                             mLayoutManager = new LinearLayoutManager(context);
                             pendingRecyclerView.setLayoutManager(mLayoutManager);
                             pendingRecyclerView.setHasFixedSize(true);
-                            pendingOrdersAdapter = new PendingOrdersAdapter(context, listResults, pendingRecyclerView);
+                            pendingOrdersAdapter = new AdminPendingOrdersAdapter(context, listResults, pendingRecyclerView);
                             pendingRecyclerView.setAdapter(pendingOrdersAdapter);
 
 

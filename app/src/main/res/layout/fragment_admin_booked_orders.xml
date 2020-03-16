@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".Views.Admin.AdminBookedOrdersFragment"
     android:orientation="vertical">
 
     <include
         android:id="@+id/appBar"
         layout="@layout/toolbar_layout" />
 
-    <com.example.bagex.Utils.CommonTextView
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/bookedRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:layout_gravity="center_horizontal"
-        android:padding="@dimen/dimen_20dp"
-        android:text="@string/booked_orders" />
+        android:layout_below="@+id/appBar" />
 
-</LinearLayout>
+</RelativeLayout>
