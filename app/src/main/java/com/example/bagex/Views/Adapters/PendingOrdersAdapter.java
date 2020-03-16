@@ -94,6 +94,7 @@ public class PendingOrdersAdapter <T> extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
+
     public void setOnCartChangedListener(OnCartChangedListener onCartChangedListener) {
         this.onCartChangedListener = onCartChangedListener;
     }
