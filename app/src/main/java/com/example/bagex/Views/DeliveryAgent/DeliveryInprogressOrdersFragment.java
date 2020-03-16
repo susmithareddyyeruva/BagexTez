@@ -1,6 +1,7 @@
 package com.example.bagex.Views.DeliveryAgent;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,12 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.bagex.R;
 import com.example.bagex.Services.APIService;
 import com.example.bagex.Services.ServiceFactory;
 import com.example.bagex.Utils.Constants;
 import com.example.bagex.Utils.SharedPrefsData;
+import com.example.bagex.Views.Activities.LoginActivity;
 import com.example.bagex.Views.Adapters.DeliveryInProgressOrdersAdapter;
 import com.example.bagex.Views.Fragments.BaseFragment;
 import com.example.bagex.Views.ModelClass.RequestModelClasses.GetBookedOrdersRequestModel;
@@ -47,6 +51,8 @@ public class DeliveryInprogressOrdersFragment extends BaseFragment {
     LinearLayoutManager mLayoutManager;
     private DeliveryInProgressOrdersAdapter deliveryInProgressOrdersAdapter;
     List<String> statusList = new ArrayList<>();
+    private ImageButton imageButton;
+
 
 
     public DeliveryInprogressOrdersFragment() {
@@ -63,6 +69,25 @@ public class DeliveryInprogressOrdersFragment extends BaseFragment {
 
         toolbar = rootview.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.app_name));
+        imageButton=rootview.findViewById(R.id.logoutbtn);
+        imageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                SharedPrefsData.putString(getContext(),Constants.ROLE,"Null",Constants.PREF_NAME);
+
+                Toast.makeText(getActivity(),"Logout Successfully.!",Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent(getActivity(), LoginActivity.class);
+
+                startActivity(i);
+
+
+
+            }
+        });
+
 
         initView();
 
