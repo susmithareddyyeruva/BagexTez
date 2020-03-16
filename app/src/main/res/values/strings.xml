@@ -45,4 +45,10 @@
     <string name="pickup_in_progress">Pickup In Progress</string>
     <string name="pickup_completed">Pickup Completed</string>
     <string name="bulk_operator">Bulk Operator</string>
+    <string name="tService">Service Type</string>
+    <string name="tName">tName</string>
+    <string name="tEmail">tEmail</string>
+    <string name="bagsNo">No Of Bags</string>
+    <string name="flightTime">Flight Time</string>
+    <string name="tpupcity">Pickup City</string>
 </resources>

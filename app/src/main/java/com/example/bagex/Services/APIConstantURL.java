@@ -12,5 +12,8 @@ public interface APIConstantURL {
     //Login
     String LOGINPage = BASE_URL + "Account/Login";
 
+    // Admin Pending Orders
+    String GetPendingOrders = BASE_URL + "Orders/GetPendingOrders";
+
 
 }

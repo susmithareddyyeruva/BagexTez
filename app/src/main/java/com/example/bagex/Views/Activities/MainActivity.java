@@ -20,6 +20,6 @@ public class MainActivity extends BaseActivity {
 
         role = findViewById(R.id.role_txt);
         roleStr = SharedPrefsData.getString(this, Constants.ROLE, Constants.PREF_NAME);
-        role.setText(roleStr + " Server Is Not Responding ");
+        role.setText( "Bagex role is not assigned.Please contact admin ");
     }
 }

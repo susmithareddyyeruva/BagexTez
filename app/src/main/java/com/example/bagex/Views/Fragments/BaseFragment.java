@@ -23,12 +23,12 @@ public class BaseFragment extends Fragment {
     public static final int MAIN_CONTAINER = R.id.container_main;
     public BaseActivity activity;
 
-   /* // to maintain onAttach lifecycle method
+    // to maintain onAttach lifecycle method
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = (BaseActivity) context;
-    }*/
+    }
 
     /**
      * Hides the soft keyboard

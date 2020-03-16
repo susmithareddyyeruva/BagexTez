@@ -17,4 +17,5 @@ public class Constants {
     public static String RoleId = "RoleId";
     public static String PASSWORD = "PASSWORD";
     public static String supervisorId = "supervisorId";
+    public static String  Auth_Token = "AuthToken";
 }

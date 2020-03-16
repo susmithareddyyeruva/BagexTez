@@ -12,5 +12,6 @@
     <color name="color_border">#d2e7f2</color>
     <color name="light_black">#979494</color>
     <color name="splash_background">#F0F0F0</color>
+    <color name="light_background">#c0e6de</color>
 
 </resources>

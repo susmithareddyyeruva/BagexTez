@@ -2,20 +2,52 @@ package com.example.bagex.Views.Admin;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bagex.R;
+import com.example.bagex.Services.APIService;
+import com.example.bagex.Services.ServiceFactory;
+import com.example.bagex.Utils.Constants;
+import com.example.bagex.Utils.SharedPrefsData;
+import com.example.bagex.Views.Adapters.PendingOrdersAdapter;
+import com.example.bagex.Views.Fragments.BaseFragment;
+import com.example.bagex.Views.ModelClass.RequestModelClasses.GetPendingOrdersRequestModel;
+import com.example.bagex.Views.ModelClass.ResponseModelClasses.GetPendingOrdersResponeModel;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import retrofit2.adapter.rxjava.HttpException;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
-public class AdminPendingOrdersFragment extends Fragment {
+public class AdminPendingOrdersFragment extends BaseFragment {
 
     private Context context;
     private View rootview;
     private Toolbar toolbar;
+    private RecyclerView pendingRecyclerView;
+    private Subscription mSubscription;
+    private String authorizationToken;
+    private ArrayList<GetPendingOrdersResponeModel.Datum> listResults = new ArrayList<>();
+    private ArrayList<GetPendingOrdersResponeModel.Datum> BindDataListResults = new ArrayList<>();
+    GetPendingOrdersResponeModel orderResponse;
+    LinearLayoutManager mLayoutManager;
+    private PendingOrdersAdapter pendingOrdersAdapter;
 
     public AdminPendingOrdersFragment() {
         // Required empty public constructor
@@ -32,6 +64,7 @@ public class AdminPendingOrdersFragment extends Fragment {
            toolbar = rootview.findViewById(R.id.toolbar);
            toolbar.setTitle(getString(R.string.app_name));
 
+
            initView();
 
            setView();
@@ -44,10 +77,84 @@ public class AdminPendingOrdersFragment extends Fragment {
 
     private void initView() {
 
+        pendingRecyclerView = rootview.findViewById(R.id.pendingRecyclerView);
+
+        activity.showProgressDialog();
+
+        getPendingOrders();
+
     }
+
+
 
     private void setView() {
 
+
+
     }
+
+    private void getPendingOrders() {
+
+        authorizationToken = SharedPrefsData.getString(context, Constants.Auth_Token, Constants.PREF_NAME);
+        JsonObject object = pendingOrdersObject();
+        APIService service = ServiceFactory.createRetrofitService(context, APIService.class);
+        mSubscription = service.getPendingOrders(object,authorizationToken)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<GetPendingOrdersResponeModel>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (e instanceof HttpException) {
+                            ((HttpException) e).code();
+                            ((HttpException) e).message();
+                            ((HttpException) e).response().errorBody();
+                            try {
+                                ((HttpException) e).response().errorBody().string();
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onNext(final GetPendingOrdersResponeModel mResponse) {
+
+                        activity.hideProgressDialog();
+                        if (mResponse.getMessage().equalsIgnoreCase("Successful.")) {
+
+                            orderResponse = mResponse;
+                            BindDataListResults = (ArrayList<GetPendingOrdersResponeModel.Datum>) mResponse.getData();
+                            listResults.addAll(BindDataListResults);
+                            mLayoutManager = new LinearLayoutManager(context);
+                            pendingRecyclerView.setLayoutManager(mLayoutManager);
+                            pendingRecyclerView.setHasFixedSize(true);
+                            pendingOrdersAdapter = new PendingOrdersAdapter(context, listResults, pendingRecyclerView);
+                            pendingRecyclerView.setAdapter(pendingOrdersAdapter);
+
+
+
+                        }
+                    }
+
+
+                });
+    }
+
+    private JsonObject pendingOrdersObject() {
+        GetPendingOrdersRequestModel mRequest = new GetPendingOrdersRequestModel();
+        mRequest.setTservice("");
+        mRequest.setMobile("");
+        mRequest.setEmail("");
+        mRequest.setFromdate("2020-03-13T10:11:05.789Z");
+        mRequest.setTodate("2020-03-13T10:11:05.789Z");
+        Log.e("pendingorders", "" + new Gson().toJsonTree(mRequest).getAsJsonObject());
+        return new Gson().toJsonTree(mRequest).getAsJsonObject();
+    }
+
 
 }

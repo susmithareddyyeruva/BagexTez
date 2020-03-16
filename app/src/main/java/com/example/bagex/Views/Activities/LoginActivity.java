@@ -29,6 +29,7 @@ import com.example.bagex.Views.DeliveryAgent.DeliveryAgentMainActivity;
 import com.example.bagex.Views.ModelClass.RequestModelClasses.LoginPageAPIRequestModel;
 import com.example.bagex.Views.ModelClass.ResponseModelClasses.LoginPostAPIResponse;
 import com.example.bagex.Views.PickupAgent.PickupAgentMainActivity;
+import com.google.android.gms.auth.api.Auth;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -49,7 +50,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private Button loginBtn;
     private Context context;
     private Toolbar toolbar;
-    private String Role;
+    private String Role,Auth_token;
     private Subscription mSubscription;
     ImageView imageView;
     int value;
@@ -301,7 +302,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         if (loginResponse.getMessage().equalsIgnoreCase("Successful.")) {
                             Log.d("response", "onNext: "+loginResponse.toString());
                             Role = loginResponse.getData().get(0).getRoles().get(0) ;
-
+                            Auth_token = "Bearer"+" "+loginResponse.getData().get(0).getToken();
+                            SharedPrefsData.putString(getApplicationContext(), Constants.Auth_Token, Auth_token, Constants.PREF_NAME);
                             if(Role.equalsIgnoreCase("Admin")){
                                 SharedPrefsData.putString(context, Constants.ROLE, Role, Constants.PREF_NAME);
                                 Toast.makeText(getApplicationContext(), " " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
