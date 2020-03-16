@@ -15,5 +15,8 @@ public interface APIConstantURL {
     // Admin Pending Orders
     String GetPendingOrders = BASE_URL + "Orders/GetPendingOrders";
 
+    // Admin Booked Orders
+    String GetBookedOrders = BASE_URL + "Orders/GetOrders";
+
 
 }
