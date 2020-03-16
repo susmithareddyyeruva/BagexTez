@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,7 +26,6 @@ public class AdminAssignedOrdersAdapter <T> extends RecyclerView.Adapter<Recycle
     Context context;
     ArrayList<GetBookedOrdersResponeModel.Datum> mResponseModel;
     private OnCartChangedListener onCartChangedListener;
-
 
     public AdminAssignedOrdersAdapter(Context context, List<T> myDataSet, RecyclerView recyclerViewCareers) {
         this.context = context;
