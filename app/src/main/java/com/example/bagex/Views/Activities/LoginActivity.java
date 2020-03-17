@@ -24,12 +24,11 @@ import com.example.bagex.Services.APIService;
 import com.example.bagex.Services.ServiceFactory;
 import com.example.bagex.Utils.Constants;
 import com.example.bagex.Utils.SharedPrefsData;
-import com.example.bagex.Views.Admin.AdminMainActivity;
-import com.example.bagex.Views.DeliveryAgent.DeliveryAgentMainActivity;
+import com.example.bagex.Views.Activities.Admin.AdminMainActivity;
+import com.example.bagex.Views.Activities.DeliveryAgent.DeliveryAgentMainActivity;
 import com.example.bagex.Views.ModelClass.RequestModelClasses.LoginPageAPIRequestModel;
 import com.example.bagex.Views.ModelClass.ResponseModelClasses.LoginPostAPIResponse;
-import com.example.bagex.Views.PickupAgent.PickupAgentMainActivity;
-import com.google.android.gms.auth.api.Auth;
+import com.example.bagex.Views.Activities.PickupAgent.PickupAgentMainActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -307,35 +306,35 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             SharedPrefsData.putInt(context, Constants.ISLOGIN, 1, Constants.PREF_NAME);
                             if(Role.equalsIgnoreCase("Admin")){
                                 SharedPrefsData.putString(context, Constants.ROLE, Role, Constants.PREF_NAME);
-                                Toast.makeText(getApplicationContext(), " " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), " Login "+" " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(LoginActivity.this, AdminMainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                                 finish();
                             }else if(Role.equalsIgnoreCase("Delivery Agent")){
                                 SharedPrefsData.putString(context, Constants.ROLE, Role, Constants.PREF_NAME);
-                                Toast.makeText(getApplicationContext(), " " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), " Login "+" " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(LoginActivity.this, DeliveryAgentMainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                                 finish();
                             }else if(Role.equalsIgnoreCase("Pickup Agent")){
                                 SharedPrefsData.putString(context, Constants.ROLE, Role, Constants.PREF_NAME);
-                                Toast.makeText(getApplicationContext(), " " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), " Login "+" " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(LoginActivity.this, PickupAgentMainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                                 finish();
                             }else if(Role.equalsIgnoreCase("Bulk Operator")){
                                 SharedPrefsData.putString(context, Constants.ROLE, Role, Constants.PREF_NAME);
-                                Toast.makeText(getApplicationContext(), " " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), " Login "+" " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(LoginActivity.this, BulkOperatorMainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                                 finish();
                             } else {
                                 SharedPrefsData.putString(context, Constants.ROLE, Role, Constants.PREF_NAME);
-                                Toast.makeText(getApplicationContext(), " " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), " Login "+" " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);

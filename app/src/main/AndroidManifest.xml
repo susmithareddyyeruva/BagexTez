@@ -25,9 +25,9 @@
         <activity
             android:name=".Views.BulkOperator.BulkOperatorMainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Views.PickupAgent.PickupAgentMainActivity"
+        <activity android:name=".Views.Activities.PickupAgent.PickupAgentMainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Views.DeliveryAgent.DeliveryAgentMainActivity"
+        <activity android:name=".Views.Activities.DeliveryAgent.DeliveryAgentMainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Views.Admin.AdminMainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>

@@ -1,4 +1,4 @@
-package com.example.bagex.Views.Adapters;
+package com.example.bagex.Views.Adapters.PickupAgent;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +16,7 @@ import com.example.bagex.Views.ModelClass.ResponseModelClasses.GetBookedOrdersRe
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeliveryInProgressOrdersAdapter <T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PickupInProgressOrdersAdapter  <T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
     private List<T> myDataSet;
@@ -27,7 +27,7 @@ public class DeliveryInProgressOrdersAdapter <T> extends RecyclerView.Adapter<Re
     private OnCartChangedListener onCartChangedListener;
 
 
-    public DeliveryInProgressOrdersAdapter(Context context, List<T> myDataSet, RecyclerView recyclerViewCareers) {
+    public PickupInProgressOrdersAdapter(Context context, List<T> myDataSet, RecyclerView recyclerViewCareers) {
         this.context = context;
         this.myDataSet = myDataSet;
         mResponseModel = (ArrayList<GetBookedOrdersResponeModel.Datum>) myDataSet;
@@ -37,7 +37,7 @@ public class DeliveryInProgressOrdersAdapter <T> extends RecyclerView.Adapter<Re
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_delivery_inprogress, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_pickup_inprogress, parent, false);
         vh = new TextViewHolder(view);
         return vh;
     }

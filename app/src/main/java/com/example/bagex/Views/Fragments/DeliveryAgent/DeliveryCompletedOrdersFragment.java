@@ -1,4 +1,4 @@
-package com.example.bagex.Views.Admin;
+package com.example.bagex.Views.Fragments.DeliveryAgent;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,8 +19,7 @@ import com.example.bagex.Services.ServiceFactory;
 import com.example.bagex.Utils.Constants;
 import com.example.bagex.Utils.SharedPrefsData;
 import com.example.bagex.Views.Activities.LoginActivity;
-import com.example.bagex.Views.Adapters.AdminAssignedOrdersAdapter;
-import com.example.bagex.Views.Adapters.AdminBookedOrdersAdapter;
+import com.example.bagex.Views.Adapters.DeliveryAgent.DeliveryCompletedOrdersAdapter;
 import com.example.bagex.Views.Fragments.BaseFragment;
 import com.example.bagex.Views.ModelClass.RequestModelClasses.GetBookedOrdersRequestModel;
 import com.example.bagex.Views.ModelClass.ResponseModelClasses.GetBookedOrdersResponeModel;
@@ -38,11 +37,12 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 
-public class AdminAssignedOrdersFragment extends BaseFragment {
+public class DeliveryCompletedOrdersFragment extends BaseFragment {
 
     private Context context;
     private View rootview;
     private Toolbar toolbar;
+    private ImageButton imageButton;
     private RecyclerView recyclerView;
     private Subscription mSubscription;
     private String authorizationToken;
@@ -50,57 +50,48 @@ public class AdminAssignedOrdersFragment extends BaseFragment {
     private ArrayList<GetBookedOrdersResponeModel.Datum> BindDataListResults = new ArrayList<>();
     GetBookedOrdersResponeModel orderResponse;
     LinearLayoutManager mLayoutManager;
-    private AdminAssignedOrdersAdapter adminAssignedOrdersAdapter;
+    private DeliveryCompletedOrdersAdapter deliveryCompletedOrdersAdapter;
     List<String> statusList = new ArrayList<>();
-    private ImageButton imageButton;
 
-    public AdminAssignedOrdersFragment()
-    {
+    public DeliveryCompletedOrdersFragment() {
         // Required empty public constructor
     }
 
-     @Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-     {
+                             Bundle savedInstanceState) {
 
-         context = getActivity();
+        context = getActivity();
 
-         // Inflate the layout for this fragment
-         rootview = inflater.inflate(R.layout.fragment_admin_assigned_orders, container, false);
-
-         toolbar = rootview.findViewById(R.id.toolbar);
+        // Inflate the layout for this fragment
+        rootview = inflater.inflate(R.layout.fragment_delivery_completed_orders, container, false);
+        toolbar = rootview.findViewById(R.id.toolbar);
          toolbar.setTitle(getString(R.string.app_name));
-         imageButton = rootview.findViewById(R.id.logoutbtn);
-         imageButton.setOnClickListener(new View.OnClickListener()
-         {
-             @Override
-             public void onClick(View v)
-             {
+        imageButton=rootview.findViewById(R.id.logoutbtn);
+        imageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                SharedPrefsData.getInstance(context).ClearData(context);
 
-                 SharedPrefsData.getInstance(context).ClearData(context);
+                Toast.makeText(getActivity(),"Logout Successfully.!",Toast.LENGTH_SHORT).show();
 
-                 Toast.makeText(getActivity(),"Logout Successfully.!",Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getActivity(), LoginActivity.class);
 
-                 Intent i = new Intent(getActivity(), LoginActivity.class);
-
-                 startActivity(i);
-
+                startActivity(i);
 
 
-             }
-         });
 
-         initView();
+            }
+        });
 
-         setView();
+        initView();
 
-         return rootview;
+        setView();
 
-
+        return rootview;
     }
-
-
 
     private void initView() {
         recyclerView = rootview.findViewById(R.id.recyclerView);
@@ -110,12 +101,8 @@ public class AdminAssignedOrdersFragment extends BaseFragment {
         getOrders();
     }
 
-
-
     private void setView() {
-
     }
-
     private void getOrders() {
 
         authorizationToken = SharedPrefsData.getString(context, Constants.Auth_Token, Constants.PREF_NAME);
@@ -156,8 +143,8 @@ public class AdminAssignedOrdersFragment extends BaseFragment {
                             mLayoutManager = new LinearLayoutManager(context);
                             recyclerView.setLayoutManager(mLayoutManager);
                             recyclerView.setHasFixedSize(true);
-                            adminAssignedOrdersAdapter = new AdminAssignedOrdersAdapter(context, listResults, recyclerView);
-                            recyclerView.setAdapter(adminAssignedOrdersAdapter);
+                            deliveryCompletedOrdersAdapter = new DeliveryCompletedOrdersAdapter(context, listResults, recyclerView);
+                            recyclerView.setAdapter(deliveryCompletedOrdersAdapter);
 
 
 
@@ -170,8 +157,7 @@ public class AdminAssignedOrdersFragment extends BaseFragment {
 
     private JsonObject bookedOrdersObject() {
         GetBookedOrdersRequestModel mRequest = new GetBookedOrdersRequestModel();
-        statusList.add("SB002");
-        statusList.add("SA002");
+        statusList.add("aSO002");
         mRequest.setStatuslist(statusList);
         mRequest.setAwbno(0);
         mRequest.setAgentid("");
@@ -187,5 +173,3 @@ public class AdminAssignedOrdersFragment extends BaseFragment {
     }
 
 }
-
-

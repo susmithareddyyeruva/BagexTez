@@ -1,4 +1,4 @@
-package com.example.bagex.Views.Adapters;
+package com.example.bagex.Views.Adapters.PickupAgent;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +16,7 @@ import com.example.bagex.Views.ModelClass.ResponseModelClasses.GetBookedOrdersRe
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeliveryNewOrdersAdapter <T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PickupNewOrdersAdapter <T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
     private List<T> myDataSet;
@@ -27,7 +27,7 @@ public class DeliveryNewOrdersAdapter <T> extends RecyclerView.Adapter<RecyclerV
     private OnCartChangedListener onCartChangedListener;
 
 
-    public DeliveryNewOrdersAdapter(Context context, List<T> myDataSet, RecyclerView recyclerViewCareers) {
+    public PickupNewOrdersAdapter(Context context, List<T> myDataSet, RecyclerView recyclerViewCareers) {
         this.context = context;
         this.myDataSet = myDataSet;
         mResponseModel = (ArrayList<GetBookedOrdersResponeModel.Datum>) myDataSet;
@@ -37,7 +37,7 @@ public class DeliveryNewOrdersAdapter <T> extends RecyclerView.Adapter<RecyclerV
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_delivery_new, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_pickup_new, parent, false);
         vh = new TextViewHolder(view);
         return vh;
     }

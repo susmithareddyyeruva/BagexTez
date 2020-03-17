@@ -6,17 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.bagex.R;
-import com.example.bagex.Utils.Cis_TextView;
-import com.example.bagex.Utils.Constants;
-import com.example.bagex.Utils.SharedPrefsData;
-import com.example.bagex.Views.Admin.AdminMainActivity;
-import com.example.bagex.Views.BulkOperator.BulkOperatorMainActivity;
-import com.example.bagex.Views.DeliveryAgent.DeliveryAgentMainActivity;
-import com.example.bagex.Views.PickupAgent.PickupAgentMainActivity;
 
 
 import rx.Subscription;

@@ -1,16 +1,19 @@
-package com.example.bagex.Views.PickupAgent;
+package com.example.bagex.Views.Activities.PickupAgent;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.example.bagex.R;
+import com.example.bagex.Views.Activities.BaseActivity;
+import com.example.bagex.Views.Fragments.PickupAgent.PickupCompletedOrdersFragment;
+import com.example.bagex.Views.Fragments.PickupAgent.PickupInprogressOrdersFragment;
+import com.example.bagex.Views.Fragments.PickupAgent.PickupNewOrdersFragment;
 
-public class PickupAgentMainActivity extends AppCompatActivity {
+public class PickupAgentMainActivity extends BaseActivity {
 
     private Context context;
     private BottomNavigationView bottomNavigationView;

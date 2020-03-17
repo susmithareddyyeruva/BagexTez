@@ -1,4 +1,4 @@
-package com.example.bagex.Views.Admin;
+package com.example.bagex.Views.Activities.DeliveryAgent;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,8 +9,11 @@ import android.widget.FrameLayout;
 
 import com.example.bagex.R;
 import com.example.bagex.Views.Activities.BaseActivity;
+import com.example.bagex.Views.Fragments.DeliveryAgent.DeliveryCompletedOrdersFragment;
+import com.example.bagex.Views.Fragments.DeliveryAgent.DeliveryInprogressOrdersFragment;
+import com.example.bagex.Views.Fragments.DeliveryAgent.DeliveryNewOrdersFragment;
 
-public class AdminMainActivity extends BaseActivity {
+public class DeliveryAgentMainActivity extends BaseActivity {
 
     private Context context;
     private BottomNavigationView bottomNavigationView;
@@ -19,36 +22,35 @@ public class AdminMainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_main);
+        setContentView(R.layout.activity_delivery_agent_main);
         context = this.getApplicationContext();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, new AdminBookedOrdersFragment())
+                .replace(R.id.content_frame, new DeliveryNewOrdersFragment())
                 .commit();
         content_frame = findViewById(R.id.content_frame);
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView_delivery);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.bnav_booked:
+                            case R.id.bnav_neworder:
 
                                 getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.content_frame, new AdminBookedOrdersFragment())
+                                        .replace(R.id.content_frame, new DeliveryNewOrdersFragment())
                                         .commit();
                                 break;
 
-
-                            case R.id.bnav_paypending:
+                            case R.id.bnav_inprogress:
                                 getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.content_frame, new AdminPendingOrdersFragment())
+                                        .replace(R.id.content_frame, new DeliveryInprogressOrdersFragment())
                                         .commit();
                                 break;
 
-                            case R.id.bnav_assigned:
+                            case R.id.bnav_completed:
                                 getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.content_frame, new AdminAssignedOrdersFragment())
+                                        .replace(R.id.content_frame, new DeliveryCompletedOrdersFragment())
                                         .commit();
                                 break;
                         }
@@ -65,3 +67,4 @@ public class AdminMainActivity extends BaseActivity {
     }
 
 }
+

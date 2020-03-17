@@ -1,4 +1,5 @@
-package com.example.bagex.Views.Admin;
+package com.example.bagex.Views.Fragments.PickupAgent;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,13 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 import com.example.bagex.R;
 import com.example.bagex.Services.APIService;
 import com.example.bagex.Services.ServiceFactory;
 import com.example.bagex.Utils.Constants;
 import com.example.bagex.Utils.SharedPrefsData;
 import com.example.bagex.Views.Activities.LoginActivity;
-import com.example.bagex.Views.Adapters.AdminBookedOrdersAdapter;
+import com.example.bagex.Views.Adapters.PickupAgent.PickupNewOrdersAdapter;
 import com.example.bagex.Views.Fragments.BaseFragment;
 import com.example.bagex.Views.ModelClass.RequestModelClasses.GetBookedOrdersRequestModel;
 import com.example.bagex.Views.ModelClass.ResponseModelClasses.GetBookedOrdersResponeModel;
@@ -35,23 +37,23 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 
-public class AdminBookedOrdersFragment extends BaseFragment {
+public class PickupNewOrdersFragment extends BaseFragment {
 
     private Context context;
     private View rootview;
     private Toolbar toolbar;
-    private RecyclerView bookedRecyclerView;
+    private ImageButton imageButton;
+    private RecyclerView recyclerView;
     private Subscription mSubscription;
     private String authorizationToken;
     private ArrayList<GetBookedOrdersResponeModel.Datum> listResults = new ArrayList<>();
     private ArrayList<GetBookedOrdersResponeModel.Datum> BindDataListResults = new ArrayList<>();
     GetBookedOrdersResponeModel orderResponse;
     LinearLayoutManager mLayoutManager;
-    private AdminBookedOrdersAdapter bookedOrdersAdapter;
+    private PickupNewOrdersAdapter pickupNewOrdersAdapter;
     List<String> statusList = new ArrayList<>();
-    private ImageButton imageButton;
 
-    public AdminBookedOrdersFragment() {
+    public PickupNewOrdersFragment() {
         // Required empty public constructor
     }
 
@@ -62,7 +64,7 @@ public class AdminBookedOrdersFragment extends BaseFragment {
         context = getActivity();
 
         // Inflate the layout for this fragment
-        rootview = inflater.inflate(R.layout.fragment_admin_booked_orders, container, false);
+        rootview = inflater.inflate(R.layout.fragment_pickup_new_orders, container, false);
 
         toolbar = rootview.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.app_name));
@@ -91,81 +93,75 @@ public class AdminBookedOrdersFragment extends BaseFragment {
 
         return rootview;
 
-    }
 
+      }
 
     private void initView() {
 
-        bookedRecyclerView = rootview.findViewById(R.id.bookedRecyclerView);
+        recyclerView = rootview.findViewById(R.id.recyclerView);
 
         activity.showProgressDialog();
 
-        getBookedOrders();
-
+        getOrders();
     }
-
-
-
 
     private void setView() {
-
-
     }
 
-    private void getBookedOrders()  {
-     authorizationToken = SharedPrefsData.getString(context, Constants.Auth_Token, Constants.PREF_NAME);
-    JsonObject object = bookedOrdersObject();
-    APIService service = ServiceFactory.createRetrofitService(context, APIService.class);
-    mSubscription = service.getBookedOrders(object,authorizationToken)
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Subscriber<GetBookedOrdersResponeModel>() {
-        @Override
-        public void onCompleted() {
-        }
+    private void getOrders() {
 
-        @Override
-        public void onError(Throwable e) {
-            if (e instanceof HttpException) {
-                ((HttpException) e).code();
-                ((HttpException) e).message();
-                ((HttpException) e).response().errorBody();
-                try {
-                    ((HttpException) e).response().errorBody().string();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-                e.printStackTrace();
-            }
-        }
+        authorizationToken = SharedPrefsData.getString(context, Constants.Auth_Token, Constants.PREF_NAME);
+        JsonObject object = bookedOrdersObject();
+        APIService service = ServiceFactory.createRetrofitService(context, APIService.class);
+        mSubscription = service.getBookedOrders(object,authorizationToken)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<GetBookedOrdersResponeModel>() {
+                    @Override
+                    public void onCompleted() {
+                    }
 
-        @Override
-        public void onNext(final GetBookedOrdersResponeModel mResponse) {
+                    @Override
+                    public void onError(Throwable e) {
+                        if (e instanceof HttpException) {
+                            ((HttpException) e).code();
+                            ((HttpException) e).message();
+                            ((HttpException) e).response().errorBody();
+                            try {
+                                ((HttpException) e).response().errorBody().string();
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
+                            e.printStackTrace();
+                        }
+                    }
 
-            activity.hideProgressDialog();
-            if (mResponse.getMessage().equalsIgnoreCase("Successful.")) {
+                    @Override
+                    public void onNext(final GetBookedOrdersResponeModel mResponse) {
 
-                orderResponse = mResponse;
-                BindDataListResults = (ArrayList<GetBookedOrdersResponeModel.Datum>) mResponse.getData();
-                listResults.addAll(BindDataListResults);
-                mLayoutManager = new LinearLayoutManager(context);
-                bookedRecyclerView.setLayoutManager(mLayoutManager);
-                bookedRecyclerView.setHasFixedSize(true);
-                bookedOrdersAdapter = new AdminBookedOrdersAdapter(context, listResults, bookedRecyclerView);
-                bookedRecyclerView.setAdapter(bookedOrdersAdapter);
+                        activity.hideProgressDialog();
+                        if (mResponse.getMessage().equalsIgnoreCase("Successful.")) {
 
-
-
-            }
-        }
+                            orderResponse = mResponse;
+                            BindDataListResults = (ArrayList<GetBookedOrdersResponeModel.Datum>) mResponse.getData();
+                            listResults.addAll(BindDataListResults);
+                            mLayoutManager = new LinearLayoutManager(context);
+                            recyclerView.setLayoutManager(mLayoutManager);
+                            recyclerView.setHasFixedSize(true);
+                            pickupNewOrdersAdapter = new PickupNewOrdersAdapter(context, listResults, recyclerView);
+                            recyclerView.setAdapter(pickupNewOrdersAdapter);
 
 
-    });
-}
+
+                        }
+                    }
+
+
+                });
+    }
 
     private JsonObject bookedOrdersObject() {
         GetBookedOrdersRequestModel mRequest = new GetBookedOrdersRequestModel();
-        statusList.add("SB001");
         statusList.add("SA002");
         mRequest.setStatuslist(statusList);
         mRequest.setAwbno(0);

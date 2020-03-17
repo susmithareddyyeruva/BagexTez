@@ -1,13 +1,8 @@
-package com.example.bagex.Views.DeliveryAgent;
+package com.example.bagex.Views.Fragments.DeliveryAgent;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -24,7 +19,7 @@ import com.example.bagex.Services.ServiceFactory;
 import com.example.bagex.Utils.Constants;
 import com.example.bagex.Utils.SharedPrefsData;
 import com.example.bagex.Views.Activities.LoginActivity;
-import com.example.bagex.Views.Adapters.DeliveryCompletedOrdersAdapter;
+import com.example.bagex.Views.Adapters.DeliveryAgent.DeliveryInProgressOrdersAdapter;
 import com.example.bagex.Views.Fragments.BaseFragment;
 import com.example.bagex.Views.ModelClass.RequestModelClasses.GetBookedOrdersRequestModel;
 import com.example.bagex.Views.ModelClass.ResponseModelClasses.GetBookedOrdersResponeModel;
@@ -42,12 +37,11 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 
-public class DeliveryCompletedOrdersFragment extends BaseFragment {
+public class DeliveryInprogressOrdersFragment extends BaseFragment {
 
     private Context context;
     private View rootview;
     private Toolbar toolbar;
-    private ImageButton imageButton;
     private RecyclerView recyclerView;
     private Subscription mSubscription;
     private String authorizationToken;
@@ -55,23 +49,25 @@ public class DeliveryCompletedOrdersFragment extends BaseFragment {
     private ArrayList<GetBookedOrdersResponeModel.Datum> BindDataListResults = new ArrayList<>();
     GetBookedOrdersResponeModel orderResponse;
     LinearLayoutManager mLayoutManager;
-    private DeliveryCompletedOrdersAdapter deliveryCompletedOrdersAdapter;
+    private DeliveryInProgressOrdersAdapter deliveryInProgressOrdersAdapter;
     List<String> statusList = new ArrayList<>();
-
-    public DeliveryCompletedOrdersFragment() {
+    private ImageButton imageButton;
+    public DeliveryInprogressOrdersFragment()
+    {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+                             Bundle savedInstanceState)
+    {
         context = getActivity();
 
         // Inflate the layout for this fragment
-        rootview = inflater.inflate(R.layout.fragment_delivery_completed_orders, container, false);
+        rootview = inflater.inflate(R.layout.fragment_delivery_inprogress_orders, container, false);
+
         toolbar = rootview.findViewById(R.id.toolbar);
-         toolbar.setTitle(getString(R.string.app_name));
+        toolbar.setTitle(getString(R.string.app_name));
         imageButton=rootview.findViewById(R.id.logoutbtn);
         imageButton.setOnClickListener(new View.OnClickListener()
         {
@@ -91,14 +87,17 @@ public class DeliveryCompletedOrdersFragment extends BaseFragment {
             }
         });
 
+
         initView();
 
         setView();
 
         return rootview;
+
     }
 
     private void initView() {
+
         recyclerView = rootview.findViewById(R.id.recyclerView);
 
         activity.showProgressDialog();
@@ -108,6 +107,7 @@ public class DeliveryCompletedOrdersFragment extends BaseFragment {
 
     private void setView() {
     }
+
     private void getOrders() {
 
         authorizationToken = SharedPrefsData.getString(context, Constants.Auth_Token, Constants.PREF_NAME);
@@ -148,8 +148,8 @@ public class DeliveryCompletedOrdersFragment extends BaseFragment {
                             mLayoutManager = new LinearLayoutManager(context);
                             recyclerView.setLayoutManager(mLayoutManager);
                             recyclerView.setHasFixedSize(true);
-                            deliveryCompletedOrdersAdapter = new DeliveryCompletedOrdersAdapter(context, listResults, recyclerView);
-                            recyclerView.setAdapter(deliveryCompletedOrdersAdapter);
+                            deliveryInProgressOrdersAdapter = new DeliveryInProgressOrdersAdapter(context, listResults, recyclerView);
+                            recyclerView.setAdapter(deliveryInProgressOrdersAdapter);
 
 
 
@@ -162,7 +162,7 @@ public class DeliveryCompletedOrdersFragment extends BaseFragment {
 
     private JsonObject bookedOrdersObject() {
         GetBookedOrdersRequestModel mRequest = new GetBookedOrdersRequestModel();
-        statusList.add("aSO002");
+        statusList.add("aSO001");
         mRequest.setStatuslist(statusList);
         mRequest.setAwbno(0);
         mRequest.setAgentid("");

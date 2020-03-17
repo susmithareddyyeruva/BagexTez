@@ -1,4 +1,4 @@
-package com.example.bagex.Views.Admin;
+package com.example.bagex.Views.Fragments.DeliveryAgent;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,15 +19,16 @@ import com.example.bagex.Services.ServiceFactory;
 import com.example.bagex.Utils.Constants;
 import com.example.bagex.Utils.SharedPrefsData;
 import com.example.bagex.Views.Activities.LoginActivity;
-import com.example.bagex.Views.Adapters.AdminPendingOrdersAdapter;
+import com.example.bagex.Views.Adapters.DeliveryAgent.DeliveryNewOrdersAdapter;
 import com.example.bagex.Views.Fragments.BaseFragment;
-import com.example.bagex.Views.ModelClass.RequestModelClasses.GetPendingOrdersRequestModel;
-import com.example.bagex.Views.ModelClass.ResponseModelClasses.GetPendingOrdersResponeModel;
+import com.example.bagex.Views.ModelClass.RequestModelClasses.GetBookedOrdersRequestModel;
+import com.example.bagex.Views.ModelClass.ResponseModelClasses.GetBookedOrdersResponeModel;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
@@ -36,91 +37,86 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 
-public class AdminPendingOrdersFragment extends BaseFragment {
+public class DeliveryNewOrdersFragment extends BaseFragment {
 
     private Context context;
     private View rootview;
     private Toolbar toolbar;
-    private RecyclerView pendingRecyclerView;
+    private RecyclerView recyclerView;
     private Subscription mSubscription;
     private String authorizationToken;
-    private ArrayList<GetPendingOrdersResponeModel.Datum> listResults = new ArrayList<>();
-    private ArrayList<GetPendingOrdersResponeModel.Datum> BindDataListResults = new ArrayList<>();
-    GetPendingOrdersResponeModel orderResponse;
+    private ArrayList<GetBookedOrdersResponeModel.Datum> listResults = new ArrayList<>();
+    private ArrayList<GetBookedOrdersResponeModel.Datum> BindDataListResults = new ArrayList<>();
+    GetBookedOrdersResponeModel orderResponse;
     LinearLayoutManager mLayoutManager;
-    private AdminPendingOrdersAdapter pendingOrdersAdapter;
+    private DeliveryNewOrdersAdapter deliveryNewOrdersAdapter;
+    List<String> statusList = new ArrayList<>();
     private ImageButton imageButton;
 
 
-    public AdminPendingOrdersFragment() {
+    public DeliveryNewOrdersFragment() {
         // Required empty public constructor
     }
 
-       @Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-           context = getActivity();
 
-           // Inflate the layout for this fragment
-           rootview = inflater.inflate(R.layout.fragment_admin_pending_orders, container, false);
+        context = getActivity();
 
-           toolbar = rootview.findViewById(R.id.toolbar);
-           toolbar.setTitle(getString(R.string.app_name));
-           imageButton = rootview.findViewById(R.id.logoutbtn);
-           imageButton.setOnClickListener(new View.OnClickListener()
-           {
-               @Override
-               public void onClick(View v)
-               {
-                   SharedPrefsData.getInstance(context).ClearData(context);
+        // Inflate the layout for this fragment
+        rootview = inflater.inflate(R.layout.fragment_delivery_new_orders, container, false);
 
-                   Toast.makeText(getActivity(),"Logout Successfully.!",Toast.LENGTH_SHORT).show();
+        toolbar = rootview.findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.app_name));
+        imageButton=rootview.findViewById(R.id.logoutbtn);
+        imageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                SharedPrefsData.getInstance(context).ClearData(context);
 
-                   Intent i = new Intent(getActivity(), LoginActivity.class);
+                Toast.makeText(getActivity(),"Logout Successfully.!",Toast.LENGTH_SHORT).show();
 
-                   startActivity(i);
+                Intent i = new Intent(getActivity(), LoginActivity.class);
 
-               }
-           });
+                startActivity(i);
 
 
-           initView();
 
-           setView();
+            }
+        });
 
-           return rootview;
 
+        initView();
+
+        setView();
+
+        return rootview;
 
     }
 
-
     private void initView() {
-
-        pendingRecyclerView = rootview.findViewById(R.id.pendingRecyclerView);
+        recyclerView = rootview.findViewById(R.id.recyclerView);
 
         activity.showProgressDialog();
 
-        getPendingOrders();
-
+        getOrders();
     }
-
-
 
     private void setView() {
 
-
-
     }
-
-    private void getPendingOrders() {
+    private void getOrders() {
 
         authorizationToken = SharedPrefsData.getString(context, Constants.Auth_Token, Constants.PREF_NAME);
-        JsonObject object = pendingOrdersObject();
+        JsonObject object = bookedOrdersObject();
         APIService service = ServiceFactory.createRetrofitService(context, APIService.class);
-        mSubscription = service.getPendingOrders(object,authorizationToken)
+        mSubscription = service.getBookedOrders(object,authorizationToken)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<GetPendingOrdersResponeModel>() {
+                .subscribe(new Subscriber<GetBookedOrdersResponeModel>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -141,19 +137,19 @@ public class AdminPendingOrdersFragment extends BaseFragment {
                     }
 
                     @Override
-                    public void onNext(final GetPendingOrdersResponeModel mResponse) {
+                    public void onNext(final GetBookedOrdersResponeModel mResponse) {
 
                         activity.hideProgressDialog();
                         if (mResponse.getMessage().equalsIgnoreCase("Successful.")) {
 
                             orderResponse = mResponse;
-                            BindDataListResults = (ArrayList<GetPendingOrdersResponeModel.Datum>) mResponse.getData();
+                            BindDataListResults = (ArrayList<GetBookedOrdersResponeModel.Datum>) mResponse.getData();
                             listResults.addAll(BindDataListResults);
                             mLayoutManager = new LinearLayoutManager(context);
-                            pendingRecyclerView.setLayoutManager(mLayoutManager);
-                            pendingRecyclerView.setHasFixedSize(true);
-                            pendingOrdersAdapter = new AdminPendingOrdersAdapter(context, listResults, pendingRecyclerView);
-                            pendingRecyclerView.setAdapter(pendingOrdersAdapter);
+                            recyclerView.setLayoutManager(mLayoutManager);
+                            recyclerView.setHasFixedSize(true);
+                            deliveryNewOrdersAdapter = new DeliveryNewOrdersAdapter(context, listResults, recyclerView);
+                            recyclerView.setAdapter(deliveryNewOrdersAdapter);
 
 
 
@@ -164,16 +160,21 @@ public class AdminPendingOrdersFragment extends BaseFragment {
                 });
     }
 
-    private JsonObject pendingOrdersObject() {
-        GetPendingOrdersRequestModel mRequest = new GetPendingOrdersRequestModel();
-        mRequest.setTservice("");
+    private JsonObject bookedOrdersObject() {
+        GetBookedOrdersRequestModel mRequest = new GetBookedOrdersRequestModel();
+        statusList.add("SB002");
+        mRequest.setStatuslist(statusList);
+        mRequest.setAwbno(0);
+        mRequest.setAgentid("");
+        mRequest.setUserid("");
+        mRequest.setDeparturetime("2020-03-16T07:19:36.320Z");
+        mRequest.setArrivaltime("");
+        mRequest.setSlotdate(null);
+        mRequest.setSlottime(null);
         mRequest.setMobile("");
-        mRequest.setEmail("");
-        mRequest.setFromdate("2020-03-13T10:11:05.789Z");
-        mRequest.setTodate("2020-03-13T10:11:05.789Z");
-        Log.e("pendingorders", "" + new Gson().toJsonTree(mRequest).getAsJsonObject());
+        mRequest.setServicetype("");
+        Log.e("orders", "" + new Gson().toJsonTree(mRequest).getAsJsonObject());
         return new Gson().toJsonTree(mRequest).getAsJsonObject();
     }
-
 
 }
