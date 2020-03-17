@@ -66,7 +66,7 @@ public class AdminBookedOrdersFragment extends BaseFragment {
 
         toolbar = rootview.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.app_name));
-        imageButton=rootview.findViewById(R.id.logoutbtn);
+       imageButton=rootview.findViewById(R.id.logoutbtn);
         imageButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
