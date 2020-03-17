@@ -45,6 +45,8 @@
     <string name="pickup_in_progress">Pickup In Progress</string>
     <string name="pickup_completed">Pickup Completed</string>
     <string name="bulk_operator">Bulk Operator</string>
+    <string name="arrival">Arrival</string>
+    <string name="Departure">Departure</string>
     <string name="tService">Service Type</string>
     <string name="tName">tName</string>
     <string name="tEmail">tEmail</string>
