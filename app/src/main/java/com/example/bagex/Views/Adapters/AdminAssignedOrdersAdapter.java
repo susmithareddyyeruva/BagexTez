@@ -17,7 +17,8 @@ import com.example.bagex.Views.ModelClass.ResponseModelClasses.GetBookedOrdersRe
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminAssignedOrdersAdapter <T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdminAssignedOrdersAdapter <T> extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
     private List<T> myDataSet;
@@ -27,7 +28,8 @@ public class AdminAssignedOrdersAdapter <T> extends RecyclerView.Adapter<Recycle
     ArrayList<GetBookedOrdersResponeModel.Datum> mResponseModel;
     private OnCartChangedListener onCartChangedListener;
 
-    public AdminAssignedOrdersAdapter(Context context, List<T> myDataSet, RecyclerView recyclerViewCareers) {
+    public AdminAssignedOrdersAdapter(Context context, List<T> myDataSet, RecyclerView recyclerViewCareers)
+    {
         this.context = context;
         this.myDataSet = myDataSet;
         mResponseModel = (ArrayList<GetBookedOrdersResponeModel.Datum>) myDataSet;
@@ -35,7 +37,8 @@ public class AdminAssignedOrdersAdapter <T> extends RecyclerView.Adapter<Recycle
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
         RecyclerView.ViewHolder vh;
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_admin_assigned, parent, false);
         vh = new TextViewHolder(view);
@@ -44,9 +47,11 @@ public class AdminAssignedOrdersAdapter <T> extends RecyclerView.Adapter<Recycle
 
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
+    {
 
-        if (holder instanceof TextViewHolder) {
+        if (holder instanceof TextViewHolder)
+        {
             ((TextViewHolder) holder).tservice.setText(CommonUtil.fromHtml("<b><font color=\"#606060\">" + context.getString(R.string.tService) + "</font><b>" + " " + ":" + " " + mResponseModel.get(position).getTService()));
             ((TextViewHolder) holder).tPupcity.setText(CommonUtil.fromHtml("<b><font color=\"#606060\">" + context.getString(R.string.tpupcity) + "</font><b>" + " " + ":" + " " + mResponseModel.get(position).getTPupCity()));
             ((TextViewHolder) holder).flighttime.setText(CommonUtil.fromHtml("<b><font color=\"#606060\">" + context.getString(R.string.flightTime) + "</font><b>" +
