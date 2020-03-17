@@ -71,13 +71,14 @@ public class AdminAssignedOrdersFragment extends BaseFragment {
 
          toolbar = rootview.findViewById(R.id.toolbar);
          toolbar.setTitle(getString(R.string.app_name));
-         imageButton=rootview.findViewById(R.id.logoutbtn);
+         imageButton = rootview.findViewById(R.id.logoutbtn);
          imageButton.setOnClickListener(new View.OnClickListener()
          {
              @Override
              public void onClick(View v)
              {
-                 SharedPrefsData.putString(getContext(),Constants.ROLE,"Null",Constants.PREF_NAME);
+
+                 SharedPrefsData.getInstance(context).ClearData(context);
 
                  Toast.makeText(getActivity(),"Logout Successfully.!",Toast.LENGTH_SHORT).show();
 

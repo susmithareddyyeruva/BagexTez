@@ -74,7 +74,7 @@ public class DeliveryInprogressOrdersFragment extends BaseFragment {
             @Override
             public void onClick(View v)
             {
-                SharedPrefsData.putString(getContext(),Constants.ROLE,"Null",Constants.PREF_NAME);
+                SharedPrefsData.getInstance(context).ClearData(context);
 
                 Toast.makeText(getActivity(),"Logout Successfully.!",Toast.LENGTH_SHORT).show();
 
