@@ -52,16 +52,15 @@ public class DeliveryInprogressOrdersFragment extends BaseFragment {
     private DeliveryInProgressOrdersAdapter deliveryInProgressOrdersAdapter;
     List<String> statusList = new ArrayList<>();
     private ImageButton imageButton;
-
-
-
-    public DeliveryInprogressOrdersFragment() {
+    public DeliveryInprogressOrdersFragment()
+    {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         context = getActivity();
 
         // Inflate the layout for this fragment

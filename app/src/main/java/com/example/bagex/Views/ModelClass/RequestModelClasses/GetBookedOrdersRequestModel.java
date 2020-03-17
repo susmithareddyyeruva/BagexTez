@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class GetBookedOrdersRequestModel {
+public class GetBookedOrdersRequestModel
+{
     @SerializedName("statuslist")
     @Expose
     private List<String> statuslist = null;

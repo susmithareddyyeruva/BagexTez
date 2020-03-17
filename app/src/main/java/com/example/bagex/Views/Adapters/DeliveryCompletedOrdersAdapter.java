@@ -16,7 +16,8 @@ import com.example.bagex.Views.ModelClass.ResponseModelClasses.GetBookedOrdersRe
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeliveryCompletedOrdersAdapter <T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DeliveryCompletedOrdersAdapter <T> extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
     private List<T> myDataSet;
@@ -27,7 +28,8 @@ public class DeliveryCompletedOrdersAdapter <T> extends RecyclerView.Adapter<Rec
     private OnCartChangedListener onCartChangedListener;
 
 
-    public DeliveryCompletedOrdersAdapter(Context context, List<T> myDataSet, RecyclerView recyclerViewCareers) {
+    public DeliveryCompletedOrdersAdapter(Context context, List<T> myDataSet, RecyclerView recyclerViewCareers)
+    {
         this.context = context;
         this.myDataSet = myDataSet;
         mResponseModel = (ArrayList<GetBookedOrdersResponeModel.Datum>) myDataSet;

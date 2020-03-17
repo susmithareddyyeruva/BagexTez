@@ -17,7 +17,8 @@ import com.example.bagex.Views.ModelClass.ResponseModelClasses.GetPendingOrdersR
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminPendingOrdersAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdminPendingOrdersAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
     private List<T> myDataSet;
@@ -27,8 +28,8 @@ public class AdminPendingOrdersAdapter<T> extends RecyclerView.Adapter<RecyclerV
     ArrayList<GetPendingOrdersResponeModel.Datum> mResponseModel;
     private OnCartChangedListener onCartChangedListener;
 
-
-    public AdminPendingOrdersAdapter(Context context, List<T> myDataSet, RecyclerView recyclerViewCareers) {
+    public AdminPendingOrdersAdapter(Context context, List<T> myDataSet, RecyclerView recyclerViewCareers)
+    {
         this.context = context;
         this.myDataSet = myDataSet;
         mResponseModel = (ArrayList<GetPendingOrdersResponeModel.Datum>) myDataSet;
